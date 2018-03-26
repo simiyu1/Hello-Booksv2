@@ -18,21 +18,23 @@ Specifications
 
   
   
-Installation
- Clone or download the repository
-    `git clone https://github.com/simiyu1/Hello-Booksv2/develop/`
-    
- Createa virtual environment
-    `virtualenv venv`
-    In windows `mkvirtualenv venv`
-    
- Activate the environment 
-    `source venv\bin\activate`
-    in windows use `venv/Scripts/activate`
-  
- Install the environmmental requirements from the file within the virtual venv
-     `pip install -r requirements.txt`
-  
-Running the tests
-      `python -m unittest discover -v` (Runs all tests in windows)
-      
+*Installation*
+
+
+   i. Clone or download the repository
+      `git clone https://github.com/simiyu1/Hello-Booksv2/develop/`
+
+   ii. Create a virtual environment
+      `virtualenv venv`
+      In windows `mkvirtualenv venv`
+
+   iii. Activate the environment 
+      `source venv\bin\activate`
+      in windows use `venv/Scripts/activate`
+
+   iv. Install the environmmental requirements from the file within the virtual venv
+       `pip install -r requirements.txt`
+
+   v. Running the tests
+        `python -m unittest discover -v` (Runs all tests in windows)
+
