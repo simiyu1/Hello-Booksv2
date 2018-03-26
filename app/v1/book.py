@@ -1,13 +1,14 @@
-import cmd
-import os
+class Book(object):
+    """A book in the library or borrowed
 
-from docopt import DocoptExit, docopt
-from termcolor import colored
-
-
-# Creating the classes Book, User, and Admin
-
-class Book(cmd.Cmd):
+	Attributes:
+        ISBN: An integer holding a unique book number.
+        title: A string holding the book title.
+        author: A string holding the writer name.
+        edition: An integer holding the version number.
+        publisher: A string holding the publishing house.
+        copies: An integer holding the number of copies of the book.
+	"""
 
     def argument_parser(fn):
         '''
@@ -28,6 +29,15 @@ class Book(cmd.Cmd):
     def default(self, args):
         invalid_command = args.split(' ')[0]
         print(invalid_command, 'Command Does Not exist')
+
+
+	def __init__(self, ISBN, title, author, edition, publisher, copies):
+		self.ISBN = ISBN
+        self.title = title
+		self.author = author
+        self.edition = edition
+		self.publisher = publisher
+        self.copies = copies
 
     @argument_parser
     def do_add_book(self, book_information):
@@ -73,6 +83,4 @@ class Book(cmd.Cmd):
         #TODO
         pass
 
-if __name__ == '__main__':
-    app = Book()
-    app.cmdloop()
+	
