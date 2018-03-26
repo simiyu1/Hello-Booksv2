@@ -29,56 +29,51 @@ class Book(object):
     def default(self, args):
         invalid_command = args.split(' ')[0]
         print(invalid_command, 'Command Does Not exist')
-
-
-	def __init__(self, ISBN, title, author, edition, publisher, copies):
-		self.ISBN = ISBN
+        
+    def __init__(self, ISBN, title, author, edition, publisher, copies):
+        self.ISBN = ISBN
         self.title = title
-		self.author = author
+        self.author = author
         self.edition = edition
-		self.publisher = publisher
+        self.publisher = publisher
         self.copies = copies
-
+        
     @argument_parser
     def do_add_book(self, book_information):
-        """
-            book_information(dict): User book_information
-
-            Usage:
-                add_book <title> <author> <publisher> <copies>
+        """book_information(dict): User book_information
+        
+        Usage:
+        add_book <title> <author> <publisher> <copies>
         """
         #TODO
         pass
-
+        
     @argument_parser
     def do_borrow_book(self, book_information):
-        """
-            book_information(dict): User book_information
-
-            Usage:
-                borrow_book <title> <author> <publisher> <copies>
+        """book_information(dict): User book_information
+        
+        Usage:
+        borrow_book <title> <author> <publisher> <copies>
         """
         #TODO
         pass
-
+        
     @argument_parser
     def do_delete_book(self, book_information):
-        """
-            book_information(dict): User book_information
-
-            Usage:
-                delete_book <title> <author> <publisher> <copies>
+        """book_information(dict): User book_information
+        
+        Usage:
+        delete_book <title> <author> <publisher> <copies>
         """
         #TODO
         pass
-
+        
     @argument_parser
     def do_update_book(self, book_information):
-        """
-            book_information(dict): User book_information
-
-            Usage:
-                update_book <title> <author> <publisher> <copies>
+        """book_information(dict): User book_information
+        
+        Usage:
+        update_book <title> <author> <publisher> <copies>
         """
         #TODO
         pass
