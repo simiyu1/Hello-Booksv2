@@ -13,7 +13,6 @@ class booksTestCase(unittest.TestCase):
         self.book = {'ISBN': '475', 'title':'Night train to Istanbull','author':'Penny Mice',
                       'edition':'1','publisher':'Pearson','copies':'54'}
 
-
     def test_book_creation(self):
         """Test API can create a book add request (POST request)"""
         res = self.client().post('/api/books/', data=self.book)
@@ -67,8 +66,6 @@ class booksTestCase(unittest.TestCase):
         result = self.client().get('/api/books/')
         self.assertEqual(result.status_code, 404)
 
-    
 
-# Make the tests conveniently executable
 if __name__ == "__main__":
     unittest.main()

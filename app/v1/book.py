@@ -1,4 +1,3 @@
-from docopt import DocoptExit, docopt
 books_list = [] #Database with all book information
 
 class Book(object):
@@ -12,9 +11,6 @@ class Book(object):
         publisher: A string holding the publishing house.
         copies: An integer holding the number of copies of the book.
 	"""
-
-    
-
     def default(self, args):
         invalid_command = args.split(' ')[0]
         print(invalid_command, 'Command Does Not exist')
@@ -27,7 +23,6 @@ class Book(object):
         self.publisher = 'none'
         self.copies = 0
         
-    #@argument_parser
     def do_add_book(self, ISBN, title, author, edition, publisher, copies):
         """book_information(dict): User book_information
         
@@ -41,10 +36,8 @@ class Book(object):
         self.edition = edition
         self.publisher = publisher
         self.copies = copies
-        #books_list.add_book(self, book_information)
         pass
         
-    #@argument_parser
     def do_borrow_book(self, book_information):
         """book_information(dict): User book_information
         
@@ -54,7 +47,6 @@ class Book(object):
         #TODO
         pass
         
-    #@argument_parser
     def do_delete_book(self, book_information):
         """book_information(dict): User book_information
         
@@ -64,7 +56,6 @@ class Book(object):
         #TODO books_list.delete_book(self, book_information)
         pass
         
-    #@argument_parser
     def do_update_book(self, book_information):
         """book_information(dict): User book_information
         

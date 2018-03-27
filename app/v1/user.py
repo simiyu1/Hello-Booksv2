@@ -37,12 +37,12 @@ class User(object):
 		else:
 			return False
 
-	
-
 	def get_book(self):
 		"""
 		function to get all the books created
 		"""
+
+		
 class client(User):
     """A client account type."""
 
@@ -62,6 +62,7 @@ class client(User):
 		"""
 		admin function to return books
 		"""
+
 
 class admin(User):
     """An administrator account type."""
