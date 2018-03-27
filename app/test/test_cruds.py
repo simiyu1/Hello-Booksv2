@@ -16,21 +16,21 @@ class booksTestCase(unittest.TestCase):
 
     def test_book_creation(self):
         """Test API can create a book add request (POST request)"""
-        res = self.client().post('/v1/books', data=self.book)
+        res = self.client().post('/api/books/', data=self.book)
         self.assertEqual(res.status_code, 201)
         self.assertIn(book, str(res.data))
 
     def test_api_can_get_all_book(self):
         """Test API can get all entries (GET request)."""
-        res = self.client().post('/booklists/', data=self.book)
+        res = self.client().post('/api/books/', data=self.book)
         self.assertEqual(res.status_code, 201)
-        res = self.client().get('/booklists/')
+        res = self.client().get('/api/books/')
         self.assertEqual(res.status_code, 200)
         self.assertIn(book, str(res.data))
 
     def test_api_can_get_book_by_id(self):
         """Test API can get a single book entry by using it's isdn."""
-        rv = self.client().post('/booklists/', data=self.book)
+        rv = self.client().post('/api/books/', data=self.book)
         self.assertEqual(rv.status_code, 201)
         result_in_json = json.loads(rv.data.decode('utf-8').replace("'", "\""))
         result = self.client().get(
@@ -41,28 +41,30 @@ class booksTestCase(unittest.TestCase):
     def test_book_can_be_edited(self):
         """Test API can edit an existing book entry. (PUT request)"""
         rv = self.client().post(
-            '/booklists/',
-            data={'name': 'Eat, pray and love'})
+            '/api/books/',
+            data={'isbn': 1, 'title':'The Mirage', 'author':'nicole kidman',
+                    'edition':3,'publisher':'Pearson', 'copies':4})
         self.assertEqual(rv.status_code, 201)
         rv = self.client().put(
-            '/booklists/1',
+            '/api/books/',
             data={
                 "name": "Dont just eat, but also pray and love :-)"
             })
         self.assertEqual(rv.status_code, 200)
-        results = self.client().get('/booklists/1')
+        results = self.client().get('/api/books/')
         self.assertIn('Dont just eat', str(results.data))
 
     def test_book_deletion(self):
         """Test API can delete a book entry. (DELETE request)."""
         rv = self.client().post(
-            '/booklists/',
-            data={'name': 'Eat, pray and love'})
+            '/api/books/',
+            data={'isbn': 1, 'title':'The Mirage', 'author':'nicole kidman',
+                    'edition':3,'publisher':'Pearson', 'copies':4})
         self.assertEqual(rv.status_code, 201)
         res = self.client().delete('/booklists')
         self.assertEqual(res.status_code, 200)
         # Test to see if it exists, should return a 404
-        result = self.client().get('/booklists/1')
+        result = self.client().get('/api/books/')
         self.assertEqual(result.status_code, 404)
 
     

@@ -10,23 +10,24 @@ from instance.config import app_config
 
 
 
+
 def create_app(config_name):
     from v1.book import Book
     app = FlaskAPI(__name__, instance_relative_config=True)
     app.config.from_object(app_config[config_name])
     app_config[config_name].init_app(app)
 
-    @app.route('/v1/books', methods=['POST', 'GET'])
+    @app.route('/api/books/', methods=['POST', 'GET'])
     def booklist():
         """Adds a book to the library if POST, or retrieves all books if GET is used"""
 
         if request.method == "POST":
-            isbn = str(request.data.get('isbn', ''))
+            isbn = str(request.data.get('ISBN', ''))
             if isbn:
-                booklist = Booklist(isbn=isbn)
-                booktlist.save()
+                booklist = Book(ISBN=isbn)
+                booklist.save()
                 response = jsonify({
-                    'isbn': booklist.isbn,
+                    'ISBN': booklist.ISBN,
                     'title': booklist.title,
                     'author': booklist.author,
                     'edition': booklist.edition,
@@ -55,7 +56,7 @@ def create_app(config_name):
             return response
 
     
-    @app.route('/booklists/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+    @app.route('/api/books/<int:id>', methods=['GET', 'PUT', 'DELETE'])
     def booklist_manipulation(isbn, **kwargs):
      # access a single book using it's ISBN
         booklist = get_book_by_isbn(isbn).first()
