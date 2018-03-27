@@ -2,7 +2,6 @@ import os
 import unittest
 from v1.book import Book
 
-
 """
 Book(dict)
 normal: {title->string, author->string, edition->string, copies->number}
@@ -11,7 +10,6 @@ boundaries: {title -> "", "   ", 0777: author -> "", "   ", 0777:
 edge: {author -> "too long ", }
 unexpected: {dict, list, file, }
 """
-
 class AddBookTestCase(unittest.TestCase):
     def test_title_is_not_empty_string(self):
         app = Book()

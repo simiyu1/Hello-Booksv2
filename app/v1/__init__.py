@@ -1,15 +1,7 @@
 
 from flask_api import FlaskAPI
 from flask import request, jsonify, abort
-
-
-# local import configs and routes(route file merged here)
 from instance.config import app_config
-
-
-
-
-
 
 def create_app(config_name):
     from v1.book import Book
@@ -40,7 +32,6 @@ def create_app(config_name):
         else:
             booklists = Booklist.get_all()
             results = []
-
             for booklist in booklists:
                 obj = {
                     'isbn': booklist.isbn,
@@ -54,7 +45,6 @@ def create_app(config_name):
             response = jsonify(results)
             response.status_code = 200
             return response
-
     
     @app.route('/api/books/<int:id>', methods=['GET', 'PUT', 'DELETE'])
     def booklist_manipulation(isbn, **kwargs):
@@ -96,7 +86,5 @@ def create_app(config_name):
             })
             response.status_code = 200
             return response
-
-
     return app
 
