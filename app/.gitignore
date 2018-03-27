@@ -1,9 +1,0 @@
-#exclude myvenv virtual env
-/myvenv
-/myvenv/*
-*.pyc
-*/*.pyc
-*/*/*.pyc
-*/*/*/*.pyc
-__pycache__/*
-
