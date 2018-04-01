@@ -54,4 +54,4 @@ Specifications
 
 
 [![Coverage Status](https://coveralls.io/repos/github/simiyu1/Hello-Booksv2/badge.svg?branch=develop)](https://coveralls.io/github/simiyu1/Hello-Booksv2?branch=develop)
-[![Build Status](https://travis-ci.org/simiyu1/Hello-Booksv2.svg?branch=master)](https://travis-ci.org/simiyu1/Hello-Booksv2)
+[![Build Status](https://travis-ci.org/simiyu1/Hello-Booksv2.svg?branch=develop)](https://travis-ci.org/simiyu1/Hello-Booksv2)
