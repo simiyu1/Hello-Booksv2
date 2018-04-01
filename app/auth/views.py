@@ -2,31 +2,33 @@
 from flask_restful import Resource
 from flask import request
 
-from app.userdir.user import User
+from app.userdir.models import User
 
 
 all_users = []
 
 class Register(Resource):
-    '''A class to handle the creation of a new user'''
+    '''User registration Class'''
 
     def post(self):
         if 'username' not in request.json or 'password' not in request.json:
             return {"Message": "Username or password missing"}, 201
-        username = request.json['username']
-        unavailable = [
+        username = request.args.get('username')
+        exists = [
             user for user in all_users if user.username == username]
 
-        if unavailable:
+        if exists:
             return {"Message": "Username exists please try another"}
 
-        username = request.json['username']
-        password = request.json['password']
+        userid = 3 #Dummy ID Id will genererated by len(all_user) 
+        username = request.args.get('username')
+        password = request.args.get('password')
+        role = request.args.get('role')
 
-        user = User(username, password)
+        user = User(userid, username, password, role)
         all_users.append(user)
 
-        return {'user details': {'username': user.username, 'borrowings': user.borrowed_books}}, 201
+        return {"Message": "User created"}, 201
 
 
 class Reset(Resource):
