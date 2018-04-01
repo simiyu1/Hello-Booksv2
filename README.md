@@ -30,3 +30,5 @@ Specifications
    v. Running the tests
         `python -m unittest discover -v` (Runs all tests in windows)
 
+[![Coverage Status](https://coveralls.io/repos/github/simiyu1/Hello-Booksv2/badge.svg?branch=master)](https://coveralls.io/github/simiyu1/Hello-Booksv2?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/simiyu1/Hello-Booksv2/badge.svg?branch=master)](https://coveralls.io/github/simiyu1/Hello-Booksv2?branch=master)
