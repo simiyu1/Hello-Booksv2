@@ -9,7 +9,7 @@ from app.bookdir.models import Book
 # Create dummy users dataset to hold dummy users
 users_list = []
 user1 = User(1,'Mainmuna Swazi','pass123','client')
-user2 = User(2,'Mwenda Nduthi','pass123','client')
+user2 = User(2,'Mwenda Kifikifi','pass123','client')
 user3 = User(3,'Khololosia Mbi','pass123','client')
 user4 = User(4,'Kinde Kinde','pass123','client')
 users_list.append(user1)
@@ -34,8 +34,8 @@ class Users(Resource):
             items = [user for user in users_list if user.userid == senID]
             if len(items) < 1:
                 return 'User not found', 404
-            return ({'username': items[0].username},
-                     {'message': 'Welcome to Hello-Books.'}), 200
+            return ({'user':{'userid': items[0].userid, 'username': items[0].username, 'role': items[0].role}}, {'message': 'Fetched User'}), 200
+            
             
         else:
             items = []
@@ -43,7 +43,10 @@ class Users(Resource):
                 return 'Users not found', 404
             for user in users_list:
                 items.append({'userid': user.userid, 'username': user.username})
-            return (items), 200
+            #return (items), 200
+            size = len(items)
+            return ({'username': items[0].username},
+                     {'message': 'Fetched User'}), 200
 
         return {'message': 'Welcome to Hello-Books. '}, 200
 
@@ -57,13 +60,12 @@ class Borrow(Resource):
             return 'You Have to specify the book ISBN',200
         if len(books_list) < 1: #Chec if there are books in the library
             return {"Message":"No Books in the library"}, 404
-        item_id = int(sentISBN)
-        book = [item for item in books_list if item.ISBN == item_id ]
-
-        if not book:
-            return {"Message": "No book found with the given book id"}, 404
-        borrowed.append({'ISBN': book[0].ISBN, 'title': book[0].title, 'author': book[0].author})
-        #Add to the users list of books
-        borrowed_books.append(borrowed)
-        #return the book to be checked out
-        return (borrowed), 200
+        else:
+            item_id = int(sentISBN)
+            book = [item for item in books_list if item.ISBN == item_id ]
+            if not book:
+                return {"Message": "No book found with the given book id"}, 404
+            else:
+                borrowed.append({'ISBN': book[0].ISBN, 'title': book[0].title, 'author': book[0].author})
+                borrowed_books.append(borrowed)
+            return ({'Message': 'Book borrowed'}), 200
