@@ -30,6 +30,24 @@ class Register(Resource):
 
         return {"Message": "User created"}, 201
 
+class Login(Resource):
+    '''User login Class'''
+
+    def post(self):
+        if 'username' not in request.json or 'password' not in request.json:
+            return {"Message": "Username or password missing"}, 201
+        username = request.args.get('username')
+        exists = [user for user in all_users if user.username == username
+                    and user.password == password]
+
+        if exists:
+            #create token hash
+            username = request.args.get('username')
+            role = request.args.get('role')
+            return {"Message": "Welcome, login success"}, 200
+        else:
+            return {"Message": "Check username or password and try again"}
+
 
 class Reset(Resource):
 
