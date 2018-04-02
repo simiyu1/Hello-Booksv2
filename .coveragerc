@@ -1,7 +1,7 @@
 [report]
 
 omit = */python?.?/*
-
-   */site-packages/*
-
-   */usr/*
+    */site-packages/*
+    */site-packages/*
+    */usr/*
+    */instance/*
