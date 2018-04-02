@@ -10,7 +10,7 @@ class Book(object):
         copies: An integer holding the number of copies of the book.
 	"""
         
-    def __init__(self, ISBN, title, author, edition, publisher, copies):
+    def __init__(self, ISBN, title, author):
         """book_information(dict): User book_information
         
         Usage:
@@ -20,8 +20,5 @@ class Book(object):
         self.ISBN = ISBN
         self.title = title
         self.author = author
-        self.edition = edition
-        self.publisher = publisher
-        self.copies = copies
         
     

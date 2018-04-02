@@ -23,9 +23,8 @@ class Register(Resource):
         userid = 3 #Dummy ID Id will genererated by len(all_user) 
         username = request.args.get('username')
         password = request.args.get('password')
-        role = request.args.get('role')
 
-        user = User(userid, username, password, role)
+        user = User(userid, username, password)
         all_users.append(user)
 
         return {"Message": "User created"}, 201
