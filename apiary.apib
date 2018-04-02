@@ -1,43 +1,49 @@
 FORMAT: 1A
 HOST: http://polls.apiblueprint.org/
 
-# hello
+# Hello Books API
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+Hello Books is a simple API designed to ease library systems functionalities. 
+Actions like registering library clients, holding book information, allow users
+to search and browse all books as well as borrow and return books. Each functionality
+is implemented as an endpoint, all endpoints are listed as follows
+allowing consumers to view polls and vote in them.
 
-## Questions Collection [/questions]
+## Book Collection [/books]
 
-### List All Questions [GET]
+### List All Books [GET]
 
 + Response 200 (application/json)
 
         [
             {
-                "question": "Favourite programming language?",
+                "question": "Book Data",
                 "published_at": "2015-08-05T08:40:51.620Z",
                 "choices": [
                     {
-                        "choice": "Swift",
+                        "choice": "If tomorrow comes",
+                        "author": "Sidney Sheldon",
                         "votes": 2048
                     }, {
-                        "choice": "Python",
+                        "choice": "Origin",
+                        "author": "Ken Follet",
                         "votes": 1024
                     }, {
-                        "choice": "Objective-C",
+                        "choice": "The preamble",
+                        "author": "Ngoso 101",
                         "votes": 512
                     }, {
-                        "choice": "Ruby",
+                        "choice": "The Junction",
+                        "author": "William Mbadi",
                         "votes": 256
                     }
                 ]
             }
         ]
 
-### Create a New Question [POST]
+### Add a new Book [POST]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+You can add a new book entry into the collection.
 
 + Request (application/json)
 
