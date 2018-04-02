@@ -8,17 +8,17 @@ from app.bookdir.models import Book
 
 # Create dummy users dataset to hold dummy users
 users_list = []
-user1 = User(1,'Mainmuna Swazi','pass123','client')
-user2 = User(2,'Mwenda Kifikifi','pass123','client')
-user3 = User(3,'Khololosia Mbi','pass123','client')
-user4 = User(4,'Kinde Kinde','pass123','client')
+user1 = User(1,'Mainmuna Swazi','pass123')
+user2 = User(2,'Mwenda Kifikifi','pass123')
+user3 = User(3,'Khololosia Mbi','pass123')
+user4 = User(4,'Kinde Kinde','pass123')
 users_list.append(user1)
 users_list.append(user2)
 users_list.append(user3)
 users_list.append(user4)
 borrowed_books = []
-book1 = Book(1,'The Eleventh Commandment','Jeffrey Archer','1','Harper Collins',7)
-book2 = Book(2,'If Tomorrow Comes','Sidney Sheldon','1','Grand Central Publishers',7)
+book1 = Book(1,'The Eleventh Commandment','Jeffrey Archer')
+book2 = Book(2,'If Tomorrow Comes','Sidney Sheldon')
 borrowed_books.append(book1)
 borrowed_books.append(book2)
 
@@ -48,7 +48,7 @@ class Users(Resource):
             return ({'username': items[0].username},
                      {'message': 'Fetched User'}), 200
 
-        return {'message': 'Welcome to Hello-Books. '}, 200
+        
 
 
 class Borrow(Resource):
