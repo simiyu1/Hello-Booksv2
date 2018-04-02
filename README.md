@@ -1,9 +1,8 @@
 # Hello-Booksv2
 This is a python based API that keeps library transaction records.
 
-Specifications
+#Specifications
 
-[![Coverage Status](https://coveralls.io/repos/github/simiyu1/Hello-Booksv2/badge.svg?branch=develop)](https://coveralls.io/github/simiyu1/Hello-Booksv2?branch=develop)
 
 
 | EndPoint | EndPoint |
@@ -20,7 +19,7 @@ Specifications
 |  |  |
 
 
-*Installation*
+#*Installation*
 
 
    i. Clone or download the repository
