@@ -27,12 +27,10 @@ class Users(Resource):
 
     def get(self, userid=None):
 
-        senID = request.args.get('userid')
-
-        if senID != None:
-            senID = int(senID)
+        if request.args.get('userid') != None:
+            senID = request.args.get('userid')
             items = []
-            items = [user for user in users_list if user.userid == senID]
+            items = [user for user in users_list if user.userid == int(senID)]
             if len(items) < 1:
                 return 'User not found', 404
             return ({'user':{'userid': items[0].userid, 'username': items[0].username, 'role': items[0].role}}, {'message': 'Fetched User'}), 200

@@ -56,12 +56,24 @@ class BookAPITests(unittest.TestCase):
         # Later check that test_item should be in the list book7 in data
         self.assertTrue(data, msg='All book data')
 
-    def test_get_a_single_book(self):
-        ''' test if a book cab be serached by ISBN
+    def test_get_book_fail(self):
+        ''' Should fail book retrieval for unkown ISBN
         '''
-        data= {'author': 'Dan Brown'}
+        data= {'ISBN': 33}
         resp = self.app.get(self.BASE_URL,
                              data=json.dumps(data), content_type='application/json')
+        
+        
+
+        # Later check that test_item should be in the list book7 in data
+        self.assertEqual(resp.status_code, 200 , msg='Books not found')
+
+    def test_get_a_single_book_by_author(self):
+        ''' test if a book cab be searched by author
+        '''
+        sentdata= {'author': 'Dan Brown'}
+        resp = self.app.get(self.BASE_URL,
+                             data=json.dumps(sentdata), content_type='application/json')
         self.assertEqual(resp.status_code, 200,
                          msg='Should retrieve data from the api.')
 
@@ -126,7 +138,30 @@ class BookAPITests(unittest.TestCase):
         resp = self.app.put(self.BASE_URL, data=json.dumps(
             data), content_type='application/json')
 
-        self.assertEqual(resp.status_code, 404,
+        self.assertEqual(resp.status_code, 201,
+                         msg='Missing book details')
+
+    def test_update_book(self):
+        '''This method updates book details given an ISBN number'''
+
+        newbook = {'ISBN': 10, 'title':'The hand of God', 
+                      'author':'Ken Follet'}
+        resp = self.app.put(self.BASE_URL, data=json.dumps(
+            newbook), content_type='application/json')
+        data = json.loads(resp.get_data().decode('utf-8'))
+
+        self.assertEqual(resp.status_code, 201,
+                         msg='Book added')
+    
+    def test_update_book_missing_details(self):
+        '''This method throws error message when variables are missing'''
+
+        newbook = { 'title':'The hand of God', 
+                      'author':'Ken Follet'}
+        resp = self.app.put(self.BASE_URL, data=json.dumps(
+            newbook), content_type='application/json')
+
+        self.assertEqual(resp.status_code, 201,
                          msg='Missing book details')
 
 

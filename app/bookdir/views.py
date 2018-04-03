@@ -25,20 +25,19 @@ class books(Resource):
     
     def get(self, author=None):
 
-        sentID = request.args.get('author')
+        author = request.args.get('author')
 
-        if sentID != None:
-            sentID = int(sentID)
+        if author != None:
             items = []
-            items = [book for book in books_list if book.author == sentID]
+            items = [book for book in books_list if book.author == author]
             if len(items) < 1:
                 return 'Item not found', 404
-            return ({'Book': {'ISBN': items[0].ISBN, 'title': items[0].title, 'author': items[0].author}},{'message':'Gets a specific book'}), 200
+            return ({'Book': {'ISBN': items[0].ISBN, 'title': items[0].title, 'author': items[0].author}},{'message':'Gets a specific book'}), 201
             
         else:
             manyitems = []
             if len(books_list) < 1:
-                return 'Books not found', 404
+                return 'Books not found', 200
             for book in books_list:
                 manyitems.append(
                     {'ISBN': book.ISBN, 'title': book.title, 'author': book.author})
@@ -86,24 +85,23 @@ class books(Resource):
 
 
     def put(self):
-        if not request.json or 'author' not in request.json or 'title' not in request.json:
-            return {'message':'Missing book details'}, 404
+        if not request.args.get('ISBN'):
+            return {'message':'Missing book details'}, 201
 
-        ISBN = request.json['ISBN']
-        title = request.json['title']
-        author = request.json['author']
-
-
-        items = [book for book in books_list if book.ISBN == ISBN]
-
-        books_list.remove(items[0])
-
-        items[0].ISBN = ISBN
-        items[0].title = title
-        items[0].author = author
-
-        books_list.append(items[0])
-
-           
-        return ({'book':{'ISBN':items[0].ISBN,'title':items[0].title,'author':items[0].author}}),200
+        else:
+            ISBN = request.args.get('ISBN')
+            title = request.args.get('title')
+            author = request.args.get('author')
+            
+            items = [book for book in books_list if book.ISBN == ISBN]
+            if not items:
+                return "Book to update not found"
+                
+            books_list.remove(items[0])
+            items[0].ISBN = ISBN
+            items[0].title = title
+            items[0].author = author
+            
+            books_list.append(items[0])
+            return (items[0].title),200
 
