@@ -1,4 +1,7 @@
 # Hello-Booksv2
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/51473ebb2f9244fe8876780e2f3bb278)](https://app.codacy.com/app/simiyu1/Hello-Booksv2?utm_source=github.com&utm_medium=referral&utm_content=simiyu1/Hello-Booksv2&utm_campaign=badger)
+
 This is a python based API that keeps library transaction records.
 
 Specifications
