@@ -1,9 +1,11 @@
 # Hello-Booksv2
-This is a python based API that helps to keeps track of library transactions and records. It will allow services to connect to the endpoints and register or login users, borrow books, and allow privilleged users to add or edit book information.
-
 [![Coverage Status](https://coveralls.io/repos/github/simiyu1/Hello-Booksv2/badge.svg?branch=develop)](https://coveralls.io/github/simiyu1/Hello-Booksv2?branch=develop)
 [![Build Status](https://travis-ci.org/simiyu1/Hello-Booksv2.svg?branch=develop)](https://travis-ci.org/simiyu1/Hello-Booksv2)
 [![Maintainability](https://api.codeclimate.com/v1/badges/11f1077e3fb865fbe06f/maintainability)](https://codeclimate.com/github/simiyu1/Hello-Booksv2/maintainability)
+
+This is a python based API that helps to keeps track of library transactions and records. It will allow services to connect to the endpoints and register or login users, borrow books, and allow privilleged users to add or edit book information.
+
+
 
 #Specifications
 
