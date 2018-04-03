@@ -44,13 +44,7 @@ class books(Resource):
                     {'ISBN': book.ISBN, 'title': book.title, 'author': book.author})
             return manyitems, 200
 
-    def generateID(self):
-        items = [book.ISBN for book in books_list]
-        if len(items) == 0:
-            return 1
-        items.sort()
-        newID = items[-1] + 1
-        return newID
+    
 
     def make_response(self, Book):
         data = {'ISBN': Book.ISBN, 'title': Book.title, 'author': Book.author}
@@ -72,13 +66,16 @@ class books(Resource):
         data = self.make_response(newbook) #later we will need to test the actual entries
         return ({'msg':'Book added'}), 201
 
-    def delete(self, ISBN):
+    def delete(self):
+        ISBN = request.args.get('ISBN')
+        print(ISBN)
         books = [book for book in books_list if book.ISBN == ISBN]
+        
 
         if len(books) < 1:
-            return 'Book entry not found', 404
+            return {'Message':'Book entry not found'}, 404
         books_list.remove(books[0])
-        return 204
+        return ({'msg':'Book deleted'}),200
 
     def make_response(self, Book):
         data = {'ISBN': Book.ISBN, 'title': Book.title,
@@ -88,9 +85,9 @@ class books(Resource):
         return data
 
 
-    def put(self, ISBN, title, author):
+    def put(self):
         if not request.json or 'author' not in request.json or 'title' not in request.json:
-            return {'message':'Missing book details'}
+            return {'message':'Missing book details'}, 404
 
         ISBN = request.json['ISBN']
         title = request.json['title']

@@ -44,6 +44,18 @@ class BookAPITests(unittest.TestCase):
         # Later check that test_item should be in the list book7 in data
         self.assertTrue(data, msg='All book data')
 
+    def test_get_books_by_ISBN(self):
+        ''' Should retrieve books from library by ISBN
+        '''
+        data= {'ISBN': 3}
+        resp = self.app.get(self.BASE_URL,
+                             data=json.dumps(data), content_type='application/json')
+        
+        
+
+        # Later check that test_item should be in the list book7 in data
+        self.assertTrue(data, msg='All book data')
+
     def test_get_a_single_book(self):
         ''' test if a book cab be serached by ISBN
         '''
@@ -80,8 +92,7 @@ class BookAPITests(unittest.TestCase):
         data= {'ISBN': 2}
         item_id = 1
         
-        resp = self.app.post(self.BASE_URL, data=json.dumps(
-            data), content_type='application/json')
+        resp = self.app.delete(self.BASE_URL, data=json.dumps(data),  content_type='application/json')
         
         if resp.status_code == 404:
             return True
@@ -95,10 +106,29 @@ class BookAPITests(unittest.TestCase):
         self.assertFalse(test_item in books,
                          msg='The api should delete a book')
 
-    def test_edit_book(self):
-        '''Updates book data'''
+    def test_delete_book_not_found(self):
+        ''' testing book deletion when not available
+        '''
+        data= {'ISBN': 26}
+        
+        resp = self.app.delete(self.BASE_URL, data=json.dumps(
+            data), content_type='application/json')
 
-        pass
+        self.assertEqual(resp.status_code, 404,
+                         msg='Book entry not found')
+
+
+    def test_edit_book_fail(self):
+        ''' testing book put
+        '''
+        data= {'ISBN': 26}
+        
+        resp = self.app.put(self.BASE_URL, data=json.dumps(
+            data), content_type='application/json')
+
+        self.assertEqual(resp.status_code, 404,
+                         msg='Missing book details')
+
 
 
 
