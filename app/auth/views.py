@@ -19,7 +19,6 @@ class Register(Resource):
 
         if exists:
             return {"Message": "Username exists please try another"}
-
         userid = 3 #Dummy ID Id will genererated by len(all_user) 
         username = request.args.get('username')
         password = request.args.get('password')
@@ -57,14 +56,11 @@ class Reset(Resource):
 
         username = request.args.get('username')
         password = request.args.get('password')
-        new_password= request.args.get('new_password')
         user = [user for user in all_users if user.username == username and
                     user.password == password]
         if not user:
             return {"Message": "No user or password found"},201
-        
         all_users.remove(user[0])
         user[0].password = password
         all_users.append(user[0])
-
         return {"Message": "Reset success"}, 201

@@ -1,6 +1,5 @@
 from flask_restful import Resource
-from flask import request, jsonify
-from flask import json
+from flask import request
 
 from app.bookdir.views import books_list
 from app.userdir.models import User
@@ -24,34 +23,24 @@ borrowed_books.append(book1)
 borrowed_books.append(book2)
 
 class Users(Resource):
-
     def get(self, userid=None):
-
         if request.args.get('userid') != None:
             senID = request.args.get('userid')
             items = []
             items = [user for user in users_list if user.userid == int(senID)]
             if len(items) < 1:
                 return 'User not found', 404
-            return ({'user':{'userid': items[0].userid, 'username': items[0].username, 'role': items[0].role}}, {'message': 'Fetched User'}), 200
-            
-            
+            return ({'user':{'userid': items[0].userid, 'username': items[0].username, 'role': items[0].role}}, {'message': 'Fetched User'}), 200           
         else:
             items = []
             if len(users_list) < 1:
                 return 'Users not found', 404
             for user in users_list:
                 items.append({'userid': user.userid, 'username': user.username})
-            #return (items), 200
-            size = len(items)
             return ({'username': items[0].username},
                      {'message': 'Fetched User'}), 200
 
-        
-
-
 class Borrow(Resource):
-
     def post(self, ISBN=None):
         sentISBN = request.args.get('ISBN')
         borrowed = []
