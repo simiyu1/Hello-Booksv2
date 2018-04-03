@@ -8,8 +8,7 @@ class Book(object):
         edition: A string holding the version number.
         publisher: A string holding the publishing house.
         copies: An integer holding the number of copies of the book.
-	"""
-        
+	"""    
     def __init__(self, ISBN, title, author):
         """book_information(dict): User book_information
         
