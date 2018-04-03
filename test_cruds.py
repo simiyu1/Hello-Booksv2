@@ -132,6 +132,51 @@ class UserTests(unittest.TestCase):
 
         self.assertEqual(resp.status_code, 201,
                         msg="user created")
+    
+    def test_can_login_user_pass(self):
+        self.successuser = {'username': 'Miguna', 'password': 'pass123'}
+
+        responce = self.app.post(self.BASE_URL + 'login', data=json.dumps(
+            self.successuser), content_type='application/json')
+
+        self.assertEqual(responce.status_code, 200,
+                        msg="Welcome, login success")
+    
+    def test_can_login_user_fails(self):
+        self.successuser = {'username': 'Miguna', 'password': 'kenyan'}
+
+        resp = self.app.post(self.BASE_URL + 'login', data=json.dumps(
+            self.successuser), content_type='application/json')
+
+        self.assertEqual(resp.status_code, 200,
+                        msg="Check username or password and try again")
+
+    def test_can_reset_password(self):
+        self.resetdata = {'username': 'Miguna', 'password': 'kenyan', 'new_password': 'canadian'}
+
+        resp = self.app.post(self.BASE_URL + 'reset', data=json.dumps(
+            self.resetdata), content_type='application/json')
+
+        self.assertEqual(resp.status_code, 201,
+                        msg="Reset success")
+
+    def test_can_reset_password_fail(self):
+        self.resetdata = {'username': 'Miguna', 'password': 'canadian', 'new_password': 'kenyan'}
+
+        resp = self.app.post(self.BASE_URL + 'reset', data=json.dumps(
+            self.resetdata), content_type='application/json')
+
+        self.assertEqual(resp.status_code, 201,
+                        msg="No user or password found")
+
+    def test_can_reset_fields_empty(self):
+        self.resetdata = {'username': 'Miguna'}
+
+        resp = self.app.post(self.BASE_URL + 'reset', data=json.dumps(
+            self.resetdata), content_type='application/json')
+
+        self.assertEqual(resp.status_code, 404,
+                        msg="Make sure to fill all required fields")
 
     def test_user_details_can_be_fetched(self):
         pass
