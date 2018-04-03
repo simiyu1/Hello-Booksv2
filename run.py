@@ -3,8 +3,8 @@ from app.bookdir import book
 from app.userdir import user
 from app.auth import auth
 
-from flask import Flask
-#from app import app
+# from flask import Flask
+import app
 app = app.app
 
 # Register the blueprints
