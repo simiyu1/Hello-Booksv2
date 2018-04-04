@@ -45,6 +45,7 @@ class books(Resource):
         data = {'ISBN': Book.ISBN, 'title': Book.title, 'author': Book.author}
         return data
 
+    @classmethod
     def post(self):
         if not request.args.get('userid') or 'author' not in request.args.get('author') or 'title' not in request.args.get('title'):
             return {'message':'Missing book details'}

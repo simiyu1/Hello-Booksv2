@@ -32,6 +32,7 @@ class Register(Resource):
 class Login(Resource):
     '''User login Class'''
 
+    @classmethod
     def post(self):
         if 'username' not in request.json or 'password' not in request.json:
             return {"Message": "Username or password missing"}, 201

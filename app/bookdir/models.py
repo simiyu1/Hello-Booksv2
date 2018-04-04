@@ -19,5 +19,3 @@ class Book(object):
         self.ISBN = ISBN
         self.title = title
         self.author = author
-        
-    

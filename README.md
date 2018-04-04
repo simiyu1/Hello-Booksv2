@@ -6,11 +6,7 @@
 
 This is a python based API that helps to keeps track of library transactions and records. It will allow services to connect to the endpoints and register or login users, borrow books, and allow privilleged users to add or edit book information.
 
-
-
 #Specifications
-
-
 
 | EndPoint | EndPoint |
 | ------------- | ------------- |
@@ -45,18 +41,3 @@ This is a python based API that helps to keeps track of library transactions and
 
    v. Running the tests
         `python -m unittest discover -v` (Runs all tests in windows)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
