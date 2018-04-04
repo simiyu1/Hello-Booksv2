@@ -10,6 +10,7 @@ all_users = []
 class Register(Resource):
     '''User registration Class'''
 
+    @classmethod
     def post(self):
         if 'username' not in request.json or 'password' not in request.json:
             return {"Message": "Username or password missing"}, 201
@@ -19,7 +20,7 @@ class Register(Resource):
 
         if exists:
             return {"Message": "Username exists please try another"}
-        userid = 3 #Dummy ID Id will genererated by len(all_user) 
+        userid = 3 #Dummy ID Id will genererated by len(all_user)
         username = request.args.get('username')
         password = request.args.get('password')
 

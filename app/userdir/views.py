@@ -23,6 +23,7 @@ borrowed_books.append(book1)
 borrowed_books.append(book2)
 
 class Users(Resource):
+    @classmethod
     def get(self, userid=None):
         if request.args.get('userid') != None:
             received_ID = request.args.get('userid')
@@ -41,6 +42,7 @@ class Users(Resource):
                      {'message': 'Fetched User'}), 200
 
 class Borrow(Resource):
+    @classmethod
     def post(self, ISBN=None):
         recieved_ISBN = request.args.get('ISBN')
         borrowed = []

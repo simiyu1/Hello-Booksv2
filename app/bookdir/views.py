@@ -22,6 +22,7 @@ books_list.append(book7)
 books_list.append(book8)
 
 class books(Resource):
+    @classmethod
     def get(self, author=None):
         author = request.args.get('author')
         if author != None:
@@ -39,6 +40,7 @@ class books(Resource):
                     {'ISBN': book.ISBN, 'title': book.title, 'author': book.author})
             return manyitems, 200
 
+    @classmethod
     def make_response(self, Book):
         data = {'ISBN': Book.ISBN, 'title': Book.title, 'author': Book.author}
         return data
@@ -73,16 +75,13 @@ class books(Resource):
             ISBN = request.args.get('ISBN')
             title = request.args.get('title')
             author = request.args.get('author')
-            
             items = [book for book in books_list if book.ISBN == ISBN]
             if not items:
                 return "Book to update not found"
-                
             books_list.remove(items[0])
             items[0].ISBN = ISBN
             items[0].title = title
             items[0].author = author
-            
             books_list.append(items[0])
             return (items[0].title),200
 

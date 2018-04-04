@@ -11,7 +11,7 @@ class Book(object):
 	"""
     def __init__(self, ISBN, title, author):
         """book_information(dict): User book_information
-        
+
         Usage:
         add_book <title> <author> <edition> <publisher> <copies>
         """

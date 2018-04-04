@@ -54,7 +54,7 @@ class BookAPITests(unittest.TestCase):
         data= {'ISBN': 33}
         resp = self.app.get(self.BASE_URL,
                              data=json.dumps(data), content_type='application/json')
-        
+
         
 
         # Later check that test_item should be in the list book7 in data
@@ -81,7 +81,7 @@ class BookAPITests(unittest.TestCase):
 
     def test_post_book(self):
         '''This method tests that a book can be added'''
-        newbook = {'ISBN': 10, 'title':'The hand of God', 
+        newbook = {'ISBN': 10, 'title':'The hand of God',
                       'author':'Ken Follet'}
         resp = self.app.post(self.BASE_URL, data=json.dumps(
             newbook), content_type='application/json')
@@ -144,7 +144,6 @@ class UserTests(unittest.TestCase):
     def setUp(self):
         # Prepare for testing;set up variables
         from app.auth.views import all_users
-        from app.userdir.models import User
         self.all_users = all_users
         self.app = app
         self.app = self.app.test_client()
