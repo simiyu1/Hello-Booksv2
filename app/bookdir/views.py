@@ -54,6 +54,7 @@ class books(Resource):
         books_list.append(newbook)
         return ({'msg':'Book added'}), 201
 
+    @classmethod
     def delete(self):
         ISBN = request.args.get('ISBN')
         print(ISBN)
@@ -63,6 +64,7 @@ class books(Resource):
         books_list.remove(books[0])
         return ({'msg':'Book deleted'}),200
 
+    @classmethod
     def put(self):
         if not request.args.get('ISBN'):
             return {'message':'Missing book details'}, 201
