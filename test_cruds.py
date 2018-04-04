@@ -63,20 +63,20 @@ class BookAPITests(unittest.TestCase):
     def test_get_a_single_book_by_author(self):
         ''' test if a book cab be searched by author
         '''
-        sentdata= {'author': 'Dan Brown'}
+        sent_data= {'author': 'Dan Brown'}
         resp = self.app.get(self.BASE_URL,
-                             data=json.dumps(sentdata), content_type='application/json')
+                             data=json.dumps(sent_data), content_type='application/json')
         self.assertEqual(resp.status_code, 200,
                          msg='Should retrieve data from the api.')
 
         data = json.loads(resp.get_data().decode('utf-8'))
-        gotdata = data[1]
+        got_data = data[1]
 
         test_item = {'ISBN': 3, 'title':'If Tomorrow Comes','author':'Jeffrey Archer'}
 
 
         # test_item should be in the list
-        self.assertEqual(test_item['title'], gotdata['title'],
+        self.assertEqual(test_item['title'], got_data['title'],
                         msg='Gets a specific book')
 
     def test_post_book(self):
@@ -95,7 +95,7 @@ class BookAPITests(unittest.TestCase):
         resp = self.app.delete(self.BASE_URL, data=json.dumps(data),  content_type='application/json')
         if resp.status_code == 404:
             return True
-        test_item = (1, 'Test Driven Development', 'Kent Beck')
+        test_item = (2,'If Tomorrow Comes','Sidney Sheldon')
         # Get all books in the api
         books = []
         for book in books_list:
@@ -124,19 +124,19 @@ class BookAPITests(unittest.TestCase):
 
     def test_update_book(self):
         '''This method updates book details given an ISBN number'''
-        newbook = {'ISBN': 10, 'title':'The hand of God', 
+        new_book = {'ISBN': 10, 'title':'The hand of God', 
                       'author':'Ken Follet'}
         resp = self.app.put(self.BASE_URL, data=json.dumps(
-            newbook), content_type='application/json')
+            new_book), content_type='application/json')
         self.assertEqual(resp.status_code, 201,
                          msg='Book added')
     
     def test_update_book_missing_details(self):
         '''This method throws error message when variables are missing'''
-        newbook = { 'title':'The hand of God',
+        new_book = { 'title':'The hand of God',
                       'author':'Ken Follet'}
         resp = self.app.put(self.BASE_URL, data=json.dumps(
-            newbook), content_type='application/json')
+            new_book), content_type='application/json')
         self.assertEqual(resp.status_code, 201,
                          msg='Missing book details')
 
