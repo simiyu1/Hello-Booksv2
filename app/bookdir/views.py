@@ -29,7 +29,7 @@ class books(Resource):
             items = [book for book in books_list if book.author == author]
             if len(items) < 1:
                 return 'Item not found', 404
-            return ({'Book': {'ISBN': items[0].ISBN, 'title': items[0].title, 'author': items[0].author}},{'message':'Gets a specific book'}), 201           
+            return ({'Book': {'ISBN': items[0].ISBN, 'title': items[0].title, 'author': items[0].author}},{'message':'Gets a specific book'}), 201
         else:
             manyitems = []
             if len(books_list) < 1:

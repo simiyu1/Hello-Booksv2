@@ -135,7 +135,7 @@ class BookAPITests(unittest.TestCase):
     
     def test_update_book_missing_details(self):
         '''This method throws error message when variables are missing'''
-        newbook = { 'title':'The hand of God', 
+        newbook = { 'title':'The hand of God',
                       'author':'Ken Follet'}
         resp = self.app.put(self.BASE_URL, data=json.dumps(
             newbook), content_type='application/json')

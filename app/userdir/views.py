@@ -30,7 +30,7 @@ class Users(Resource):
             items = [user for user in users_list if user.userid == int(senID)]
             if len(items) < 1:
                 return 'User not found', 404
-            return ({'user':{'userid': items[0].userid, 'username': items[0].username, 'role': items[0].role}}, {'message': 'Fetched User'}), 200           
+            return ({'user':{'userid': items[0].userid, 'username': items[0].username, 'role': items[0].role}}, {'message': 'Fetched User'}), 200
         else:
             items = []
             if len(users_list) < 1:
