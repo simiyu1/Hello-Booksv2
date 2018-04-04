@@ -124,7 +124,7 @@ class BookAPITests(unittest.TestCase):
 
     def test_update_book(self):
         '''This method updates book details given an ISBN number'''
-        new_book = {'ISBN': 10, 'title':'The hand of God', 
+        new_book = {'ISBN': 10, 'title':'The hand of God',
                       'author':'Ken Follet'}
         resp = self.app.put(self.BASE_URL, data=json.dumps(
             new_book), content_type='application/json')
