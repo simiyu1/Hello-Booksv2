@@ -84,7 +84,7 @@ class BookAPITests(unittest.TestCase):
             newbook), content_type='application/json')
         self.assertEqual(resp.status_code, 200,
                          msg='Book added')
-        
+
     def test_delete_book(self):
         ''' testing book deletion
         '''

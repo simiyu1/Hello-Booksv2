@@ -52,6 +52,7 @@ class Login(Resource):
 
 class Reset(Resource):
 
+    @classmethod
     def post(self):
         if 'username' not in request.json or 'new_password' not in request.json:
             return {"Message": "Make sure to fill all required fields"}, 404
