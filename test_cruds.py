@@ -44,9 +44,7 @@ class BookAPITests(unittest.TestCase):
         data= {'ISBN': 3}
         resp = self.app.get(self.BASE_URL,
                              data=json.dumps(data), content_type='application/json')
-        
-        
-
+        data = json.loads(resp.get_data().decode('utf-8'))
         # Later check that test_item should be in the list book7 in data
         self.assertTrue(data, msg='All book data')
 
