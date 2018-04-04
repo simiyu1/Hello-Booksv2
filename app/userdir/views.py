@@ -1,6 +1,5 @@
 from flask_restful import Resource
-from flask import request, jsonify
-from flask import json
+from flask import request
 
 from app.bookdir.views import books_list
 from app.userdir.models import User
@@ -12,6 +11,7 @@ user1 = User(1,'Mainmuna Swazi','pass123')
 user2 = User(2,'Mwenda Kifikifi','pass123')
 user3 = User(3,'Khololosia Mbi','pass123')
 user4 = User(4,'Kinde Kinde','pass123')
+user5 = User(5,'Miguna','pass123')
 users_list.append(user1)
 users_list.append(user2)
 users_list.append(user3)
@@ -23,45 +23,33 @@ borrowed_books.append(book1)
 borrowed_books.append(book2)
 
 class Users(Resource):
-
     def get(self, userid=None):
-
-        senID = request.args.get('userid')
-
-        if senID != None:
-            senID = int(senID)
+        if request.args.get('userid') != None:
+            received_ID = request.args.get('userid')
             items = []
-            items = [user for user in users_list if user.userid == senID]
+            items = [user for user in users_list if user.userid == int(received_ID)]
             if len(items) < 1:
                 return 'User not found', 404
             return ({'user':{'userid': items[0].userid, 'username': items[0].username, 'role': items[0].role}}, {'message': 'Fetched User'}), 200
-            
-            
         else:
             items = []
             if len(users_list) < 1:
                 return 'Users not found', 404
             for user in users_list:
                 items.append({'userid': user.userid, 'username': user.username})
-            #return (items), 200
-            size = len(items)
             return ({'username': items[0].username},
                      {'message': 'Fetched User'}), 200
 
-        
-
-
 class Borrow(Resource):
-
     def post(self, ISBN=None):
-        sentISBN = request.args.get('ISBN')
+        recieved_ISBN = request.args.get('ISBN')
         borrowed = []
-        if sentISBN == None:
+        if recieved_ISBN == None:
             return 'You Have to specify the book ISBN',200
         if len(books_list) < 1: #Chec if there are books in the library
             return {"Message":"No Books in the library"}, 404
         else:
-            item_id = int(sentISBN)
+            item_id = int(received_ID)
             book = [item for item in books_list if item.ISBN == item_id ]
             if not book:
                 return {"Message": "No book found with the given book id"}, 404

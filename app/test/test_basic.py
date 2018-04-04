@@ -1,15 +1,5 @@
-import os
 import unittest
-from app.bookdir.models import Book
 
-"""
-Book(dict)
-normal: {title->string, author->string, edition->string, copies->number}
-boundaries: {title -> "", "   ", 0777: author -> "", "   ", 0777: 
-    edition -> "", "   ", 0777: copies -> [0, string, empty, -1, ]}
-edge: {author -> "too long ", }
-unexpected: {dict, list, file, }
-"""
 class AddBookTestCase(unittest.TestCase):
     def test_title_is_not_empty_string(self):
         #app = Book()

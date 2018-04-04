@@ -19,7 +19,6 @@ class Register(Resource):
 
         if exists:
             return {"Message": "Username exists please try another"}
-
         userid = 3 #Dummy ID Id will genererated by len(all_user) 
         username = request.args.get('username')
         password = request.args.get('password')
@@ -36,32 +35,32 @@ class Login(Resource):
         if 'username' not in request.json or 'password' not in request.json:
             return {"Message": "Username or password missing"}, 201
         username = request.args.get('username')
+        password = request.args.get('password')
         exists = [user for user in all_users if user.username == username
                     and user.password == password]
 
         if exists:
             #create token hash
             username = request.args.get('username')
-            role = request.args.get('role')
+            password = request.args.get('password')
             return {"Message": "Welcome, login success"}, 200
         else:
-            return {"Message": "Check username or password and try again"}
+            return {"Message": "Check username or password and try again"}, 404
 
 
 class Reset(Resource):
 
     def post(self):
         if 'username' not in request.json or 'new_password' not in request.json:
-            return {"Message": "Make sure to fill all required fields"}
+            return {"Message": "Make sure to fill all required fields"}, 404
 
-        username = request.json['username']
-        password = request.json['new_password']
-        user = [user for user in all_users if user.username == username]
+        username = request.args.get('username')
+        password = request.args.get('password')
+        user = [user for user in all_users if user.username == username and
+                    user.password == password]
         if not user:
-            return {"Message": "No user found with that username"}
-
+            return {"Message": "No user or password found"},201
         all_users.remove(user[0])
         user[0].password = password
         all_users.append(user[0])
-
-        return {"username": user[0].username, "password": user[0].password}, 201
+        return {"Message": "Reset success"}, 201

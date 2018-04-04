@@ -2,6 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/simiyu1/Hello-Booksv2/badge.svg?branch=develop)](https://coveralls.io/github/simiyu1/Hello-Booksv2?branch=develop)
 [![Build Status](https://travis-ci.org/simiyu1/Hello-Booksv2.svg?branch=develop)](https://travis-ci.org/simiyu1/Hello-Booksv2)
 [![Maintainability](https://api.codeclimate.com/v1/badges/11f1077e3fb865fbe06f/maintainability)](https://codeclimate.com/github/simiyu1/Hello-Booksv2/maintainability)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/811913374a82494bb11c7c1b86c752ed)](https://www.codacy.com/app/simiyu1/Hello-Booksv2?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=simiyu1/Hello-Booksv2&amp;utm_campaign=Badge_Grade)
 
 This is a python based API that helps to keeps track of library transactions and records. It will allow services to connect to the endpoints and register or login users, borrow books, and allow privilleged users to add or edit book information.
 
