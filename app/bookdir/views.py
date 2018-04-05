@@ -30,11 +30,11 @@ class books(Resource):
             items = [book for book in books_list if book.author == author]
             if len(items) < 1:
                 return 'Item not found', 404
-            return ({'Book': {'ISBN': items[0].ISBN, 'title': items[0].title, 'author': items[0].author}},{'message':'Gets a specific book'}), 201
+            return ({'Book': {'ISBN': items[0].ISBN, 'title': items[0].title, 'author': items[0].author}},{'message':'Gets a specific book'}), 200
         else:
             manyitems = []
             if len(books_list) < 1:
-                return 'Books not found', 200
+                return 'Books not found', 404
             for book in books_list:
                 manyitems.append(
                     {'ISBN': book.ISBN, 'title': book.title, 'author': book.author})
@@ -43,25 +43,28 @@ class books(Resource):
     @classmethod
     def make_response(self, Book):
         data = {'ISBN': Book.ISBN, 'title': Book.title, 'author': Book.author}
-        return data
+        return data, 200
 
     @classmethod
     def post(self):
-        if not request.args.get('userid') or 'author' not in request.args.get('author') or 'title' not in request.args.get('title'):
-            return {'message':'Missing book details'}
-        NewID = len(books_list) #
-        ISBN = NewID
-        title = request.args.get('title')
-        author = request.args.get('author')
+        req_data = request.get_json()
+        if not req_data['author']:
+            return {'message':'Missing book details'}, 404
+        New_ID = len(books_list) #
+        ISBN = New_ID
+        title = req_data['title']
+        author = req_data['author']
         newbook = Book(ISBN, title, author)
         books_list.append(newbook)
         return ({'msg':'Book added'}), 201
 
     @classmethod
     def delete(self):
-        ISBN = request.args.get('ISBN')
-        print(ISBN)
-        books = [book for book in books_list if book.ISBN == ISBN]
+        req_data = request.get_json()
+        if not req_data['ISBN']:
+            return {'message':'Missing book details'}, 404
+        ISBN = req_data['ISBN']
+        books = [book for book in books_list if book.ISBN == int(ISBN)]
         if len(books) < 1:
             return {'Message':'Book entry not found'}, 404
         books_list.remove(books[0])
@@ -69,20 +72,21 @@ class books(Resource):
 
     @classmethod
     def put(self):
-        if not request.args.get('ISBN'):
-            return {'message':'Missing book details'}, 201
-
+        req_data = request.get_json()
+        if not req_data['ISBN'] or not req_data['title'] or not req_data['author']:
+            return {"Message": "Details missing"}, 406
         else:
-            ISBN = request.args.get('ISBN')
-            title = request.args.get('title')
-            author = request.args.get('author')
-            items = [book for book in books_list if book.ISBN == ISBN]
+            ISBN = req_data['ISBN']
+            title = req_data['title']
+            author = req_data['author']
+            items = [book for book in books_list if book.ISBN == int(ISBN)]
             if not items:
-                return "Book to update not found"
+                return {"message":"Book to update not found"}, 401
+            prev_title = items[0].title
             books_list.remove(items[0])
             items[0].ISBN = ISBN
             items[0].title = title
             items[0].author = author
             books_list.append(items[0])
-            return (items[0].title),200
+            return (items[0].title,"Previously", prev_title), 200
 

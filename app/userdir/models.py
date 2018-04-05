@@ -6,3 +6,4 @@ class User(object):
 		self.password = password
 		self.borrowed_books = []
 		self.returned_books = []
+		self.active = False
