@@ -69,12 +69,11 @@ class books(Resource):
         return ({'msg':'book deleted'}),200
 
     @classmethod
-    def put(self):
+    def put(self, ISBN=None):
+        if ISBN == None:
+            return {"message": "book ISBN required"}, 406
         req_data = request.get_json()
-        if not req_data['ISBN']:
-            return {"message": "book title required"}, 406
-        ISBN = req_data['ISBN']
-        items = [book for book in books_list if book.ISBN == int(ISBN)]
+        items = [book for book in books_list if book.ISBN ==int(ISBN)]
         if not items:
             return {"message":"book to update not found"}, 401
         prev_ISBN=items[0].ISBN
