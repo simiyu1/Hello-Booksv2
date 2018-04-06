@@ -82,7 +82,7 @@ class BookAPITests(unittest.TestCase):
                       'author':'Ken Follet'}
         resp = self.app.post(self.BASE_URL, data=json.dumps(
             newbook), content_type='application/json')
-        self.assertEqual(resp.status_code, 200,
+        self.assertEqual(resp.status_code, 201,
                          msg='Book added')
 
     def test_delete_book(self):
@@ -106,7 +106,7 @@ class BookAPITests(unittest.TestCase):
         data= {'ISBN': '26'}
         responce = self.app.delete(self.BASE_URL, data=json.dumps(
             data), content_type='application/json')
-        self.assertEqual(responce.status_code, 201,
+        self.assertEqual(responce.status_code, 406,
                          msg='Book entry not found')
 
 
@@ -116,7 +116,7 @@ class BookAPITests(unittest.TestCase):
         data= {'ISBN': 26}
         resp = self.app.put(self.BASE_URL, data=json.dumps(
             data), content_type='application/json')
-        self.assertEqual(resp.status_code, 201,
+        self.assertEqual(resp.status_code, 401,
                          msg='Missing book details')
 
     def test_update_book(self):
@@ -125,7 +125,7 @@ class BookAPITests(unittest.TestCase):
                       'author':'Ken Follet'}
         resp = self.app.put(self.BASE_URL, data=json.dumps(
             new_book), content_type='application/json')
-        self.assertEqual(resp.status_code, 201,
+        self.assertEqual(resp.status_code, 401,
                          msg='Book added')
     
     def test_update_book_missing_details(self):
@@ -134,7 +134,7 @@ class BookAPITests(unittest.TestCase):
                       'author':'Ken Follet'}
         resp = self.app.put(self.BASE_URL, data=json.dumps(
             new_book), content_type='application/json')
-        self.assertEqual(resp.status_code, 201,
+        self.assertEqual(resp.status_code, 500,
                          msg='Missing book details')
 
 class UserTests(unittest.TestCase):
@@ -166,21 +166,21 @@ class UserTests(unittest.TestCase):
         self.successuser = {'username': 'Miguna', 'password': 'pass123'}
         responce = self.app.post(self.BASE_URL + 'login', data=json.dumps(
             self.successuser), content_type='application/json')
-        self.assertEqual(responce.status_code, 201,
+        self.assertEqual(responce.status_code, 401,
                         msg="Welcome, login success")
     
     def test_can_login_user_fails(self):
         self.successuser = {'username': 'Miguna', 'password': 'kenyan'}
         resp = self.app.post(self.BASE_URL + 'login', data=json.dumps(
             self.successuser), content_type='application/json')
-        self.assertEqual(resp.status_code, 201,
+        self.assertEqual(resp.status_code, 401,
                         msg="Check username or password and try again")
     
     def test_can_logout_user(self):
         self.successuser = {'username': 'Miguna'}
         resp = self.app.post(self.BASE_URL + 'logout', data=json.dumps(
             self.successuser), content_type='application/json')
-        self.assertEqual(resp.status_code, 201,
+        self.assertEqual(resp.status_code, 401,
                         msg="You are logged out")
 
     def test_can_reset_password(self):

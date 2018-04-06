@@ -42,11 +42,13 @@ class Users(Resource):
             for user in users_list:
                 items.append({'userid': user.userid, 'username': user.username, 'logged in':user.active})
             return (items,
-                     {'message': 'Fetched User'}), 200
+                     {'message': 'fetched User'}), 200
 
 class Borrow(Resource):
     @classmethod
     def post(self, ISBN=None):
+        if not hasattr(request, 'userid'):
+            return "invalid", 401
         req_data = request.get_json()
         if not request.get_json():
             return 'User details missing',401
@@ -58,12 +60,12 @@ class Borrow(Resource):
             return "Not logged in"
         borrowed = []
         if len(books_list) < 1: #Chec if there are books in the library
-            return {"Message":"No Books in the library"}, 404
+            return {"message":"no Books in the library"}, 404
         else:
             item_id = recieved_ISBN
             book = [item for item in books_list if item.ISBN == int(item_id) ]
             if not book:
-                return {"Message": "No book found with the given book id"}, 404
+                return {"message": "no book found with the given book id"}, 404
             else:
                 borrowed = book[0].title
-                return (borrowed, {'Message': 'Book borrowed'}), 200
+                return (borrowed, {'message': 'book borrowed'}), 200

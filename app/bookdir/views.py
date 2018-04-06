@@ -30,11 +30,11 @@ class books(Resource):
             items = [book for book in books_list if book.ISBN == int(ISBN)]
             if len(items) < 1:
                 return 'Item not found', 404
-            return ({'Book': {'ISBN': items[0].ISBN, 'title': items[0].title, 'author': items[0].author}},{'message':'Gets a specific book'}), 200
+            return ({'book': {'ISBN': items[0].ISBN, 'title': items[0].title, 'author': items[0].author}},{'message':'Gets a specific book'}), 200
         else:
             manyitems = []
             if len(books_list) < 1:
-                return 'Books not found', 404
+                return 'books not found', 404
             for book in books_list:
                 manyitems.append(
                     {'ISBN': book.ISBN, 'title': book.title, 'author': book.author})
@@ -49,19 +49,19 @@ class books(Resource):
     def post(self):
         req_data = request.get_json()
         if not req_data['author']:
-            return {'message':'Missing book details'}, 404
+            return {'message':'missing book details'}, 404
         New_ID = len(books_list) #
         ISBN = New_ID
         title = req_data['title']
         author = req_data['author']
         newbook = Book(ISBN, title, author)
         books_list.append(newbook)
-        return ({'msg':'book added'}), 201
+        return ({'message':'book added'}), 201
 
     @classmethod
     def delete(self, ISBN=None):
         if ISBN ==None:
-            return "Book ID expected", 406
+            return "book ID expected", 406
         books = [book for book in books_list if book.ISBN == int(ISBN)]
         if len(books) < 1:
             return {'message':'book entry not found'}, 404
@@ -93,5 +93,5 @@ class books(Resource):
         else:
             items[0].author = ISBN
             books_list.append(items[0])
-            return (items[0].title,"Previously"), 200
+        return ({"current details":{ "title":items[0].title, "author":items[0].author}}), 200
 
