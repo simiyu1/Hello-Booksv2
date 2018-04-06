@@ -7,3 +7,4 @@ class User(object):
 		self.borrowed_books = []
 		self.returned_books = []
 		self.active = False
+		self.isadmin = False

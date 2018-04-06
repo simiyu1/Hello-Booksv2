@@ -80,9 +80,11 @@ class Logout(Resource):
     def post(self):
         req_data = request.get_json()
         if not req_data['username']:
-            return {"Message": "You are not logged in"}, 406
-        if req_data['active'] == False:
-            return {"Message": "You are not logged in"}, 406
-        else:
-            self.active = False #invalidate tokens
-            return {"Message": "Successfull, You are logged out"}, 200
+            return {"message": "malformed request"}, 406
+        username = req_data['username']
+        user = [user for user in users_list if user.username == username and
+                    user.active == True]
+        if not user:
+            return {"message": "user unknown"}, 401
+        user[0].active = False
+        return {"message": "Successfull, You are logged out"}, 200

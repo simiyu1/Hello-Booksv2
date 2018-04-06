@@ -12,4 +12,4 @@ from flask_restful import Api
 api = Api(app)
 
 api.add_resource(Users, '/api/v1/users/', '/api/v1/users/<int:userid>/')
-api.add_resource(Borrow, '/api/v1/users/books/', '/api/v1/users/books/<int:ISBN>/')
+api.add_resource(Borrow, '/api/v1/users/books/<ISBN>')

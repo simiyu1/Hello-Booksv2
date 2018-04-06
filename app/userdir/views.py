@@ -11,6 +11,7 @@ user1 = User(1,'Mainmuna Swazi','pass123')
 user2 = User(2,'Mwenda Kifikifi','pass123')
 user3 = User(3,'Khololosia Mbi','pass123')
 user4 = User(4,'Kinde Kinde','pass123')
+user4.isadmin = True
 user5 = User(5,'Miguna','pass123')
 users_list.append(user2)
 users_list.append(user3)
@@ -45,11 +46,11 @@ class Users(Resource):
 
 class Borrow(Resource):
     @classmethod
-    def post(self):
+    def post(self, ISBN=None):
         req_data = request.get_json()
         if not request.get_json():
-            return 'Book details missing',401
-        recieved_ISBN = req_data['ISBN']
+            return 'User details missing',401
+        recieved_ISBN = ISBN
         user_id = req_data['userid']
         exists = [
             user for user in users_list if user.userid == user_id and user.active==True]
