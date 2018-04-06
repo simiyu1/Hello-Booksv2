@@ -71,20 +71,27 @@ class books(Resource):
     @classmethod
     def put(self):
         req_data = request.get_json()
-        if not req_data['ISBN'] or not req_data['title'] or not req_data['author']:
-            return {"message": "details missing"}, 406
-        else:
-            ISBN = req_data['ISBN']
+        if not req_data['ISBN']:
+            return {"message": "book title required"}, 406
+        ISBN = req_data['ISBN']
+        items = [book for book in books_list if book.ISBN == int(ISBN)]
+        if not items:
+            return {"message":"book to update not found"}, 401
+        prev_ISBN=items[0].ISBN
+        prev_title=items[0].title
+        prev_author=items[0].author
+        books_list.remove(items[0])
+        items[0].ISBN = prev_ISBN              
+        if req_data['title']:
             title = req_data['title']
+            items[0].title = prev_title
+        else:
+            items[0].title = prev_ISBN
+        if req_data['author']:
             author = req_data['author']
-            items = [book for book in books_list if book.ISBN == int(ISBN)]
-            if not items:
-                return {"message":"book to update not found"}, 401
-            prev_title = items[0].title
-            books_list.remove(items[0])
-            items[0].ISBN = ISBN
-            items[0].title = title
-            items[0].author = author
+            items[0].author = prev_author
+        else:
+            items[0].author = ISBN
             books_list.append(items[0])
-            return (items[0].title,"Previously", prev_title), 200
+            return (items[0].title,"Previously"), 200
 
