@@ -14,9 +14,11 @@ user4 = User(4,'Kinde Kinde','pass123')
 user4.isadmin = True
 user4.active = True
 user5 = User(5,'Miguna','pass123')
+user5.active = True
 users_list.append(user2)
 users_list.append(user3)
 users_list.append(user4)
+users_list.append(user5)
 borrowed_books = []
 book1 = Book(1,'The Eleventh Commandment','Jeffrey Archer')
 book2 = Book(2,'If Tomorrow Comes','Sidney Sheldon')

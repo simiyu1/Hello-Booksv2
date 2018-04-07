@@ -8,7 +8,7 @@ from app.userdir.views import users_list
 
 small_users_list = []
 user5 = User(5,'Miguna','pass123')
-user6 = User(5,'Mboys','pass123')
+user6 = User(6,'Mboys','pass123')
 user6.active = True
 small_users_list.append(user5)
 small_users_list.append(user6)

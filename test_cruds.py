@@ -173,12 +173,19 @@ class UserTests(unittest.TestCase):
             self.user), content_type='application/json')
         self.assertEqual(resp.status_code, 201,
                         msg="user created")
+  
+    def test_can_create_user_fail_username_exists(self):
+        self.user = {"userid":3 ,'username': 'Juma', 'password': 'pass123'}
+        resp = self.app.post(self.BASE_URL + 'register', data=json.dumps(
+            self.user), content_type='application/json')
+        self.assertEqual(resp.status_code, 409,
+                        msg="username exists please try another")
     
     def test_can_login_user_pass(self):
-        self.successuser = {'username': 'Miguna', 'password': 'pass123'}
+        self.successuser = {'username': 'Kinde Kinde', 'password': 'pass123'}
         responce = self.app.post(self.BASE_URL + 'login', data=json.dumps(
             self.successuser), content_type='application/json')
-        self.assertEqual(responce.status_code, 401,
+        self.assertEqual(responce.status_code, 202,
                         msg="Welcome, login success")
     
     def test_can_login_user_fails(self):
@@ -187,13 +194,20 @@ class UserTests(unittest.TestCase):
             self.successuser), content_type='application/json')
         self.assertEqual(resp.status_code, 401,
                         msg="Check username or password and try again")
-    
+  
     def test_can_logout_user(self):
         self.successuser = {'username': 'Miguna'}
         resp = self.app.post(self.BASE_URL + 'logout', data=json.dumps(
             self.successuser), content_type='application/json')
+        self.assertEqual(resp.status_code, 200,
+                        msg="Successful you are logged out")
+
+    def test_can_logout_user_fail(self):
+        self.successuser = {'username': 'Migunaa'}
+        resp = self.app.post(self.BASE_URL + 'logout', data=json.dumps(
+            self.successuser), content_type='application/json')
         self.assertEqual(resp.status_code, 401,
-                        msg="You are logged out")
+                        msg="user unknown")
 
     def test_can_get_user_fail(self):
         self.userid = '?userid=117'
@@ -219,10 +233,10 @@ class UserTests(unittest.TestCase):
                         msg="Fetched User")
 
     def test_can_reset_password(self):
-        self.resetdata = {'username': 'Miguna', 'password': 'kenyan', 'new_password': 'canadian'}
+        self.resetdata = {'username': 'Kinde Kinde', 'password': 'pass123', 'new_password': 'canadian'}
         resp = self.app.post(self.BASE_URL + 'reset', data=json.dumps(
             self.resetdata), content_type='application/json')
-        self.assertEqual(resp.status_code, 201,
+        self.assertEqual(resp.status_code, 202,
                         msg="Reset success")
 
     def test_can_reset_password_fail(self):
