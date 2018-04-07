@@ -116,7 +116,7 @@ class BookAPITests(unittest.TestCase):
         data= {'ISBN': 26}
         resp = self.app.put(self.BASE_URL, data=json.dumps(
             data), content_type='application/json')
-        self.assertEqual(resp.status_code, 401,
+        self.assertEqual(resp.status_code, 406,
                          msg='Missing book details')
 
     def test_update_book(self):
@@ -125,7 +125,7 @@ class BookAPITests(unittest.TestCase):
                       'author':'Ken Follet'}
         resp = self.app.put(self.BASE_URL, data=json.dumps(
             new_book), content_type='application/json')
-        self.assertEqual(resp.status_code, 401,
+        self.assertEqual(resp.status_code, 406,
                          msg='Book added')
     
     def test_update_book_missing_details(self):
@@ -134,7 +134,7 @@ class BookAPITests(unittest.TestCase):
                       'author':'Ken Follet'}
         resp = self.app.put(self.BASE_URL, data=json.dumps(
             new_book), content_type='application/json')
-        self.assertEqual(resp.status_code, 500,
+        self.assertEqual(resp.status_code, 406,
                          msg='Missing book details')
 
 class UserTests(unittest.TestCase):
@@ -182,6 +182,12 @@ class UserTests(unittest.TestCase):
             self.successuser), content_type='application/json')
         self.assertEqual(resp.status_code, 401,
                         msg="You are logged out")
+
+    def test_can_get_user(self):
+        self.userid = '?userid=117'
+        responce = self.app.get(self.BASE_URL2 + self.userid)
+        self.assertEqual(responce.status_code, 404,
+                        msg="User not found")
 
     def test_can_reset_password(self):
         self.resetdata = {'username': 'Miguna', 'password': 'kenyan', 'new_password': 'canadian'}
