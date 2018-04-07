@@ -183,11 +183,23 @@ class UserTests(unittest.TestCase):
         self.assertEqual(resp.status_code, 401,
                         msg="You are logged out")
 
-    def test_can_get_user(self):
+    def test_can_get_user_fail(self):
         self.userid = '?userid=117'
         responce = self.app.get(self.BASE_URL2 + self.userid)
         self.assertEqual(responce.status_code, 404,
                         msg="User not found")
+
+    def test_can_get_users_list_fail(self):
+        self.userid = '?userid=3'
+        responce = self.app.get(self.BASE_URL2 + self.userid)
+        self.assertEqual(responce.status_code, 404,
+                        msg="User not found")
+
+    def test_can_get_user(self):
+        self.userid = '?userid=2'
+        responce = self.app.get(self.BASE_URL2 + self.userid)
+        self.assertEqual(responce.status_code, 200,
+                        msg="Fetched user")
 
     def test_can_get_all_users(self):
         responce = self.app.get(self.BASE_URL2)
@@ -215,17 +227,12 @@ class UserTests(unittest.TestCase):
         self.assertEqual(resp.status_code, 500,
                         msg="Make sure to fill all required fields")
 
-    def test_user_details_can_be_fetched(self):
-        pass
-
     def test_user_can_borrow_a_book(self):
-        data = {"username": "Kinde Kinde", "userid": 4, 'ISBN':4}
+        data = {"userid": 4}
+        self.book_data = "4"
         # send the data
-        resp = self.app.post('http://localhost:5000/api/v1/users/books/',
+        resp = self.app.post('http://localhost:5000/api/v1/users/books/'+self.book_data,
                              data=json.dumps(data), content_type='application/json')
-        if resp.status_code == 404:
-            return 1
-        # Extract data
         self.assertEqual(resp.status_code, 200, msg='Book borrowed')
 
 if __name__ == '__main__':

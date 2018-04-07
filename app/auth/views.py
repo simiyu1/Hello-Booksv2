@@ -28,7 +28,8 @@ class Register(Resource):
 
         if exists:
             return {"message": "username exists please try another"},409
-        userid = 3 #Dummy ID Id will genererated by len(all_user)
+        #userid = 3 #Dummy ID Id will genererated by len(all_user)
+        userid = len(users_list)+1
         username = req_data['username']
         password = req_data['password']
 
