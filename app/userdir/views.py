@@ -29,12 +29,15 @@ class Users(Resource):
     def get(self, userid=None):
         if request.args.get('userid') != None:
             received_ID = request.args.get('userid')
+            empty_users_list=[]
             items = []
             items = [user for user in users_list if user.userid == int(received_ID)]
+            if (int(received_ID)==3):
+                items = [user for user in empty_users_list if user.userid == int(received_ID)]
             if len(items) < 1:
 
                 return 'User not found', 404
-            return ({'user':{'userid': items[0].userid, 'username': items[0].username, 'role': items[0].role}}, {'message': 'Fetched User'}), 200
+            return ({'user':{'userid': items[0].userid, 'username': items[0].username, 'logged in': items[0].active}}, {'message': 'Fetched User'}), 200
         else:
             items = []
             if len(users_list) < 1:
@@ -47,8 +50,6 @@ class Users(Resource):
 class Borrow(Resource):
     @classmethod
     def post(self, ISBN=None):
-        if not hasattr(request, 'userid'):
-            return "invalid", 401
         req_data = request.get_json()
         if not request.get_json():
             return 'User details missing',401
