@@ -5,3 +5,4 @@ omit = */python?.?/*
     */site-packages/*
     */usr/*
     */instance/*
+    */__init__.py
