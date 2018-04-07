@@ -12,6 +12,7 @@ user2 = User(2,'Mwenda Kifikifi','pass123')
 user3 = User(3,'Khololosia Mbi','pass123')
 user4 = User(4,'Kinde Kinde','pass123')
 user4.isadmin = True
+user4.active = True
 user5 = User(5,'Miguna','pass123')
 users_list.append(user2)
 users_list.append(user3)
@@ -58,7 +59,7 @@ class Borrow(Resource):
         exists = [
             user for user in users_list if user.userid == user_id and user.active==True]
         if not exists:
-            return "Not logged in"
+            return {"message":"Not logged in"}, 406
         borrowed = []
         if len(books_list) < 1: #Chec if there are books in the library
             return {"message":"no Books in the library"}, 404

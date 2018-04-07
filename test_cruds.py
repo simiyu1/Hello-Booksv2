@@ -235,5 +235,27 @@ class UserTests(unittest.TestCase):
                              data=json.dumps(data), content_type='application/json')
         self.assertEqual(resp.status_code, 200, msg='Book borrowed')
 
+    def test_user_can_borrow_a_book_no_user_details(self):
+        self.book_data = "4"
+        # send the data
+        resp = self.app.post('http://localhost:5000/api/v1/users/books/'+self.book_data)
+        self.assertEqual(resp.status_code, 401, msg='User details missing')
+
+    def test_user_can_borrow_a_book_not_logged_in(self):
+        data = {"userid": 2}
+        self.book_data = "4"
+        # send the data
+        resp = self.app.post('http://localhost:5000/api/v1/users/books/'+self.book_data,
+                              data=json.dumps(data), content_type='application/json')
+        self.assertEqual(resp.status_code, 406, msg='Not logged in')
+
+    def test_book_not_exist(self):
+        data = {"userid": 4}
+        self.book_data = "18"
+        # send the data
+        resp = self.app.post('http://localhost:5000/api/v1/users/books/'+self.book_data,
+                              data=json.dumps(data), content_type='application/json')
+        self.assertEqual(resp.status_code, 404, msg='no book found with the given id')
+
 if __name__ == '__main__':
     unittest.main()
