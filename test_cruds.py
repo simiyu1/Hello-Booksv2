@@ -57,19 +57,16 @@ class BookAPITests(unittest.TestCase):
         # Later check that test_item should be in the list book7 in data
         self.assertEqual(resp.status_code, 200 , msg='Books not found')
 
-    def test_get_a_single_book_by_author(self):
-        ''' test if a book cab be searched by author
+    def test_get_a_single_book_by_isbn(self):
+        ''' test if a book cab be searched by ISBN
         '''
-        sent_data= {'author': 'Jeffrey Archer'}
-        resp = self.app.get(self.BASE_URL,
-                             data=json.dumps(sent_data), content_type='application/json')
-        self.assertEqual(resp.status_code, 200,
-                         msg='Should retrieve data from the api.')
+        sent_data= "?ISBN=2"
+        resp = self.app.get(self.BASE_URL+sent_data)
 
         data = json.loads(resp.get_data().decode('utf-8'))
-        got_data = data[1]
+        got_data = data[0]
 
-        test_item = {'ISBN': 2, 'title':'If Tomorrow Comes','author':'Jeffrey Archer'}
+        test_item = {'ISBN': 1, 'title':'The Eleventh Commandment','author':'Jeffrey Archer'}
 
 
         # test_item should be in the list
@@ -88,10 +85,8 @@ class BookAPITests(unittest.TestCase):
     def test_delete_book(self):
         ''' testing book deletion
         '''
-        data= {'ISBN': 2}
-        resp = self.app.delete(self.BASE_URL, data=json.dumps(data),  content_type='application/json')
-        if resp.status_code == 404:
-            return True
+        ISBN = "2"
+        resp = self.app.delete(self.BASE_URL+ISBN)
         test_item = (2,'If Tomorrow Comes','Sidney Sheldon')
         # Get all books in the api
         books = []
@@ -103,12 +98,10 @@ class BookAPITests(unittest.TestCase):
     def test_delete_book_not_found(self):
         ''' testing book deletion when not available
         '''
-        data= {'ISBN': '26'}
-        responce = self.app.delete(self.BASE_URL, data=json.dumps(
-            data), content_type='application/json')
-        self.assertEqual(responce.status_code, 406,
+        ISBN = "26"
+        responce = self.app.delete(self.BASE_URL+ISBN)
+        self.assertEqual(responce.status_code, 404,
                          msg='Book entry not found')
-
 
     def test_edit_book_fail(self):
         ''' testing book put
@@ -118,6 +111,15 @@ class BookAPITests(unittest.TestCase):
             data), content_type='application/json')
         self.assertEqual(resp.status_code, 406,
                          msg='Missing book details')
+
+    def test_update_book_success(self):
+        '''This method updates book details given an ISBN number'''
+        new_book = {'title':'The hand of God',
+                      'author':'Ken Follet'}
+        ISBN = "3"
+        resp = self.app.put(self.BASE_URL+ISBN, data=json.dumps(
+            new_book), content_type='application/json')
+        self.assertEqual(resp.status_code, 200)
 
     def test_update_book(self):
         '''This method updates book details given an ISBN number'''
@@ -136,6 +138,16 @@ class BookAPITests(unittest.TestCase):
             new_book), content_type='application/json')
         self.assertEqual(resp.status_code, 406,
                          msg='Missing book details')
+
+    def test_update_book_not_exist(self):
+        '''This method throws error message when the book is unavailable'''
+        new_book = { 'title':'The hand of God',
+                      'author':'Ken Follet'}
+        ISBN = "23"
+        resp = self.app.put(self.BASE_URL+ISBN, data=json.dumps(
+            new_book), content_type='application/json')
+        self.assertEqual(resp.status_code, 401,
+                         msg='Book to udate not found')
 
 class UserTests(unittest.TestCase):
     def setUp(self):
