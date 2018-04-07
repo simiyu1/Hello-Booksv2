@@ -189,6 +189,11 @@ class UserTests(unittest.TestCase):
         self.assertEqual(responce.status_code, 404,
                         msg="User not found")
 
+    def test_can_get_all_users(self):
+        responce = self.app.get(self.BASE_URL2)
+        self.assertEqual(responce.status_code, 200,
+                        msg="Fetched User")
+
     def test_can_reset_password(self):
         self.resetdata = {'username': 'Miguna', 'password': 'kenyan', 'new_password': 'canadian'}
         resp = self.app.post(self.BASE_URL + 'reset', data=json.dumps(
