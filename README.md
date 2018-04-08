@@ -22,7 +22,7 @@ This is a python based API that helps to keeps track of library transactions and
 |  |  |
 
 
-#*Installation*
+#Installation
 
 
    i. Clone or download the repository
@@ -43,3 +43,9 @@ This is a python based API that helps to keeps track of library transactions and
         `python -m unittest discover -v` (Runs all tests in windows)
        or using nosetests
          `nosetests --with-coverage --cover-package=app`
+
+# Documentation
+Find a detailed documentation on the expected data types, and anticipated responce data from this Apiary link https://hello332.docs.apiary.io
+
+# Contribution
+The nature of this project does not allow contributions. However, comments on my pull requests are welcome, you are also free to clone this repo and build from it. :-)
